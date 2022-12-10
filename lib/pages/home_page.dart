@@ -136,6 +136,10 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     IconButton(
                       onPressed: () {
+                        setState(() {
+                          db.toDoList.clear();
+                        });
+                        db.updateDataBase();
                       },
                       icon: const Icon(Icons.delete_forever_rounded),
                       color: Colors.red.shade600,
