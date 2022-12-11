@@ -1,17 +1,21 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import '../util/constants.dart';
 import 'my_button.dart';
 
 class DialogBox extends StatelessWidget {
-  final controller;
+  final titlecontroller;
+  final desccontroller;
   VoidCallback onSave;
   VoidCallback onCancel;
 
   DialogBox({
     super.key,
-    required this.controller,
+    required this.titlecontroller,
     required this.onSave,
     required this.onCancel,
+    required this.desccontroller,
   });
 
   @override
@@ -19,19 +23,26 @@ class DialogBox extends StatelessWidget {
     return AlertDialog(
       backgroundColor: bgcolor,
       content: SizedBox(
-        height: 150,
+        height: 200,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // get user input
             TextField(
-              style: TextStyle(color: textcolor),
-              controller: controller,
+              style: const TextStyle(color: textcolor),
+              controller: titlecontroller,
               decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Add a new task",
-                hintStyle: TextStyle(color: Color(0x80F6F6F6))
-              ),
+                  border: OutlineInputBorder(),
+                  hintText: "Add a new task",
+                  hintStyle: TextStyle(color: Color(0x80F6F6F6))),
+            ),
+            TextField(
+              style: const TextStyle(color: textcolor),
+              controller: desccontroller,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Description",
+                  hintStyle: TextStyle(color: Color(0x80F6F6F6))),
             ),
 
             // buttons -> save + cancel
@@ -41,7 +52,7 @@ class DialogBox extends StatelessWidget {
                 // save button
                 MyButton(text: "Save", onPressed: onSave),
 
-                const SizedBox(width: 8),
+                const SizedBox(width: 15),
 
                 // cancel button
                 MyButton(text: "Cancel", onPressed: onCancel),
