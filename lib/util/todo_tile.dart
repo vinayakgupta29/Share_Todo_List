@@ -4,6 +4,7 @@ import 'package:todoflutter/util/constants.dart';
 
 class ToDoTile extends StatelessWidget {
   final String taskName;
+  final String taskDesc;
   final bool taskCompleted;
   Function(bool?)? onChanged;
   Function(BuildContext)? deleteFunction;
@@ -16,6 +17,7 @@ class ToDoTile extends StatelessWidget {
     required this.onChanged,
     required this.deleteFunction,
     required this.qrfunction,
+    required this.taskDesc,
   });
 
   @override
@@ -48,6 +50,7 @@ class ToDoTile extends StatelessWidget {
           ],
         ),
         child: Container(
+          height: 100,
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: itemcolor,
@@ -61,19 +64,39 @@ class ToDoTile extends StatelessWidget {
                 onChanged: onChanged,
                 activeColor: checkboxcolor,
               ),
+              const Padding(padding: EdgeInsets.only(right: 10.0)),
 
               // task name
-              Text(
-                taskName.toUpperCase(),
-                style: TextStyle(
-                    color: textcolor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    decoration: taskCompleted
-                        ? TextDecoration.lineThrough
-                        : TextDecoration.none,
-                    decorationThickness: 4),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    taskName.toUpperCase(),
+                    style: TextStyle(
+                        color: textcolor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        decoration: taskCompleted
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                        decorationThickness: 4),
+                  ),
+                  Spacer(),
+                  Text(
+                    taskDesc,
+                    style: TextStyle(
+                        color: textcolor,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        decoration: taskCompleted
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                        decorationThickness: 4),
+                  )
+                ],
               ),
+
             ],
           ),
         ),
