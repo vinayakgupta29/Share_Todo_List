@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // if this is the 1st time ever openin the app, then create default data
+    // if this is the 1st time ever open in the app, then create default data
     if (_myBox.get("TODOLIST") == null) {
       db.createInitialData();
     } else {
@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   // text controller
   final _titlecontroller = TextEditingController();
+  final _desccontroller = TextEditingController();
 
   // checkbox was tapped
   void checkBoxChanged(bool? value, int index) {
@@ -45,8 +46,9 @@ class _HomePageState extends State<HomePage> {
   // save new task
   void saveNewTask() {
     setState(() {
-      db.toDoList.add([_titlecontroller.text, false]);
+      db.toDoList.add([_titlecontroller.text.toUpperCase(), false, _desccontroller.text]);
       _titlecontroller.clear();
+      _desccontroller.clear();
     });
     Navigator.of(context).pop();
     db.updateDataBase();
@@ -58,9 +60,10 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return DialogBox(
-          controller: _titlecontroller,
+          titlecontroller: _titlecontroller,
+          desccontroller: _desccontroller,
           onSave: saveNewTask,
-          onCancel: () => Navigator.of(context).pop(),
+          onCancel: () => Navigator.of(context).pop(), 
         );
       },
     );
@@ -145,7 +148,6 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.red.shade600,
                       iconSize: 50,
                       splashColor: Colors.red,
-                      tooltip: 'DELETE ALL',
                     ),
                     const Text('DELETE ALL',style: TextStyle(color: textcolor),)
                   ],
@@ -166,6 +168,7 @@ class _HomePageState extends State<HomePage> {
         return ToDoTile(
           taskName: db.toDoList[index][0],
           taskCompleted: db.toDoList[index][1],
+          taskDesc: db.toDoList[index][2],
           onChanged: (value) => checkBoxChanged(value, index),
           deleteFunction: (context) => deleteTask(index),
 
@@ -177,11 +180,11 @@ class _HomePageState extends State<HomePage> {
                 height: 200,
                 width: 200,
                 child: QrImage(
-                  data: db.toDoList[index][0],
+                  data: db.toDoList[index][0]+"\n "+db.toDoList[index][2],
                 ),
               ),
             ),
-          ),
+          ), 
         );
       },
     );
