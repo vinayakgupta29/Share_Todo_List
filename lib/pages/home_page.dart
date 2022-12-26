@@ -46,7 +46,8 @@ class _HomePageState extends State<HomePage> {
   // save new task
   void saveNewTask() {
     setState(() {
-      db.toDoList.add([_titlecontroller.text.toUpperCase(), false, _desccontroller.text]);
+      db.toDoList.add(
+          [_titlecontroller.text.toUpperCase(), false, _desccontroller.text]);
       _titlecontroller.clear();
       _desccontroller.clear();
     });
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
           titlecontroller: _titlecontroller,
           desccontroller: _desccontroller,
           onSave: saveNewTask,
-          onCancel: () => Navigator.of(context).pop(), 
+          onCancel: () => Navigator.of(context).pop(),
         );
       },
     );
@@ -76,7 +77,6 @@ class _HomePageState extends State<HomePage> {
     });
     db.updateDataBase();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +149,10 @@ class _HomePageState extends State<HomePage> {
                       iconSize: 50,
                       splashColor: Colors.red,
                     ),
-                    const Text('DELETE ALL',style: TextStyle(color: textcolor),)
+                    const Text(
+                      'DELETE ALL',
+                      style: TextStyle(color: textcolor),
+                    )
                   ],
                 )
               ],
@@ -180,11 +183,11 @@ class _HomePageState extends State<HomePage> {
                 height: 200,
                 width: 200,
                 child: QrImage(
-                  data: db.toDoList[index][0]+"\n "+db.toDoList[index][2],
+                  data: db.toDoList[index][0] + "\n " + db.toDoList[index][2],
                 ),
               ),
             ),
-          ), 
+          ),
         );
       },
     );
